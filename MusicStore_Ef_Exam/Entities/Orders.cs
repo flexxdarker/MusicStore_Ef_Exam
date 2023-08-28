@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicStore_Ef_Exam.Entities
 {
-    public class Category
+    internal class Orders
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<Category> Categories { get; set; }
     }
 }

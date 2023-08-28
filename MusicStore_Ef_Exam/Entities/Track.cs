@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace MusicStore_Ef_Exam.Entities
 {
-    public class Category
+    public class Track
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public int Duration { get; set; }
+        public int AlbumsId { get; set; }
+        public Album Albums { get; set; }
     }
 }
