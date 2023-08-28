@@ -10,5 +10,6 @@ namespace MusicStore_Ef_Exam.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<Author> Author { get; set; }
     }
 }

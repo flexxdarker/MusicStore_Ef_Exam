@@ -13,5 +13,7 @@ namespace MusicStore_Ef_Exam.Entities
         public int Duration { get; set; }
         public int AlbumsId { get; set; }
         public Album Albums { get; set; }
+        public int GanreId { get; set; }    
+        public Ganre Ganre { get; set; }
     }
 }

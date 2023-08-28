@@ -28,17 +28,42 @@ namespace MusicStore_Ef_Exam.Data
                 new Country() {Id = 1, Name = "Ukraine"},
                 new Country() {Id = 2, Name = "Poland"},
                 new Country() {Id = 3, Name = "Brazil"},
-                new Country() {Id = 4, Name = "Germany"}
+                new Country() {Id = 4, Name = "Germany"},
+                new Country() {Id = 5, Name = "USA"}
+            });
+            modelBuilder.Entity<Ganre>().HasData(new[]
+            {
+                new Ganre() {Id = 1, Name = "Pop"},
+                new Ganre() {Id = 2, Name = "Jazz"},
+                new Ganre() {Id = 3, Name = "Rock"},
+                new Ganre() {Id = 4, Name = "Metalic"},
+                new Ganre() {Id = 5, Name = "Hip-Hop"}
             });
             modelBuilder.Entity<Category>().HasData(new[]
             {
-                new Category() {Id = 1, Name = "Pop"},
-                new Category() {Id = 2, Name = "Jazz"},
-                new Category() {Id = 3, Name = "Rock"},
-                new Category() {Id = 4, Name = "Metalic"},
-                new Category() {Id = 5, Name = "Hip-Hop"}
+                new Category() {Id = 1, Name = "Relax"},
+                new Category() {Id = 2, Name = "Dance"},
+                new Category() {Id = 3, Name = "Work"},
+                new Category() {Id = 4, Name = "Work Out"}
             });
-            modelBuilder.Entity<C>
+            modelBuilder.Entity<Track>().HasData(new[]
+            {
+                new Track() {Id = 1, Name = "No Troubles", GanreId = 5, Duration = 240, AlbumsId = 1},
+                new Track() {Id = 2, Name = "My Way", AlbumsId= 2, Duration = 210, GanreId = 1},
+                new Track() {Id = 3, Name = "No More Tears", AlbumsId = 3, Duration = 400, GanreId = 3},
+                new Track() {Id = 4, Name = "M.A.D.E", GanreId = 1, Duration = 200, AlbumsId = 2}
+            });
+            modelBuilder.Entity<Author>().HasData(new[] 
+            { 
+                new Author() {Id = 1, Name = "Watseba", CountryId = 1},
+                new Author() {Id = 2, CountryId = 2, Name = "Calvin", Surname = "Harris"},
+                new Author() {Id = 3, CountryId = 5, Name = "Ozzy", Surname = "Osbourne"},
+                new Author() {Id = 4, CountryId = 5, Name = "Lucky", Surname = "Luke"}
+            });
+            modelBuilder.Entity<Album>().HasData(new[]
+            {
+                new Album() {Id = 1, Name = "No Troubles", AuthorId = 1, CategoryId =1, Quantity = 5, Year = 2022, Price = 2, }
+            });
 
         }
     }

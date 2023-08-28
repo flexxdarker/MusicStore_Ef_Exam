@@ -11,7 +11,7 @@ namespace MusicStore_Ef_Exam.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string? Surname { get; set; }
-        public int CountriesId { get; set; }
-        public Country Countries { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
     }
 }
