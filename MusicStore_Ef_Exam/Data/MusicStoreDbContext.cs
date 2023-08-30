@@ -17,7 +17,7 @@ namespace MusicStore_Ef_Exam.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            string conn = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;";
+            string conn = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MusicStore;Integrated Security=True;Connect Timeout=30;";
             optionsBuilder.UseSqlServer(conn);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,16 +55,33 @@ namespace MusicStore_Ef_Exam.Data
             });
             modelBuilder.Entity<Author>().HasData(new[] 
             { 
-                new Author() {Id = 1, Name = "Watseba", CountryId = 1},
+                new Author() {Id = 1, Name = "Watsebha", CountryId = 1},
                 new Author() {Id = 2, CountryId = 2, Name = "Calvin", Surname = "Harris"},
                 new Author() {Id = 3, CountryId = 5, Name = "Ozzy", Surname = "Osbourne"},
                 new Author() {Id = 4, CountryId = 5, Name = "Lucky", Surname = "Luke"}
             });
             modelBuilder.Entity<Album>().HasData(new[]
             {
-                new Album() {Id = 1, Name = "No Troubles", AuthorId = 1, CategoryId =1, Quantity = 5, Year = 2022, Price = 2, }
+                new Album() {Id = 1, Name = "No Troubles", AuthorId = 1, CategoryId =1, Quantity = 5, Year = 2022, Price = 2, OrderId = 1},
+                new Album() {Id = 2, Name = "My Way", AuthorId = 2, CategoryId = 2, Price = 5, Quantity = 20, Year = 2020, OrderId = 2},
+                new Album() {Id = 3, Name = "No More Tears", AuthorId = 3, CategoryId = 3, Year = 2018, Quantity = 100, Price = 10, OrderId = 1 },
+                new Album() {Id = 4, Name = "M.A.D.E.", AuthorId = 4, CategoryId = 4, Price = 25, Quantity = 15, Year = 2017, OrderId =1}
             });
-
+            modelBuilder.Entity<Seller>().HasData(new[]
+            {
+                new Seller() {Id = 1, Name = "Oleksandr", CountryId = 1, Surname = "Polushovuch" },
+                new Seller() {Id = 2, Name = "Dima", Surname = "Piatov", CountryId = 2}
+            });
+            modelBuilder.Entity<Buyer>().HasData(new[]
+            {
+                new Buyer() {Id = 1, Name = "Sviatoslav"},
+                new Buyer() {Id = 2, Name = "Leonardo"}
+            });
+            modelBuilder.Entity<Order>().HasData(new[]
+            {
+                new Order() { Id = 1, BuyerId = 1, SellerId = 1, Summ = 200},
+                new Order() { Id = 2, BuyerId = 2, SellerId = 2, Summ = 20}
+            });
         }
     }
 }

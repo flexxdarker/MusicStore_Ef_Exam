@@ -10,6 +10,6 @@ namespace MusicStore_Ef_Exam.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Orders> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
