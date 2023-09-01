@@ -17,7 +17,7 @@ namespace MusicStore_Ef_Exam.Data.Configurations
             builder.Property(x => x.Summ).IsRequired();
             builder.HasOne(x => x.Seller).WithMany(x => x.Orders).HasForeignKey(x => x.SellerId);
             builder.HasOne(x => x.Buyer).WithMany(x => x.Orders).HasForeignKey(x => x.BuyerId);
-            builder.HasMany(x=>x.Albums).WithOne(x=>x.Order).HasForeignKey(x => x.OrderId);
+            
         }
     }
 }

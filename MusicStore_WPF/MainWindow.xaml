@@ -1,0 +1,34 @@
+﻿<Window x:Class="MusicStore_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicStore_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel Background="BlanchedAlmond">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Margin="2">
+                <ComboBoxItem Name="ShowAlbums" Selected="ShowAlbums_Selected">Show All Albums</ComboBoxItem>
+                <ComboBoxItem Name="ShowAuthors" Selected="ShowAuthors_Selected">Show All Authors</ComboBoxItem>
+                <ComboBoxItem Name="ShowBuyers" Selected="ShowBuyers_Selected">Show All Buyers</ComboBoxItem>
+                <ComboBoxItem Name="ShowOrders" Selected="ShowOrders_Selected">Show All Orders</ComboBoxItem>
+                <ComboBoxItem Name="ShowSellers" Selected="ShowSellers_Selected">Show All Sellers</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Grid.Column="1" Margin="2">
+                <ComboBoxItem Name="AddAlbum" Selected="AddAlbum_Selected">Add Album</ComboBoxItem>
+                <ComboBoxItem Name="AddAuthor" Selected="AddAuthor_Selected">Add Author</ComboBoxItem>
+                <ComboBoxItem Name="AddBuyer" Selected="AddBuyer_Selected">Add Buyer</ComboBoxItem>
+                <ComboBoxItem Name="AddOrder" Selected="AddOrder_Selected">Add Order</ComboBoxItem>
+                <ComboBoxItem Name="AddSeller" Selected="AddSeller_Selected">Add Seller</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid DockPanel.Dock="Top" Background="DimGray">
+            <DataGrid x:Name="Grid"/>
+        </Grid>
+    </DockPanel>
+</Window>

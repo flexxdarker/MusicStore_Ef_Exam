@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicStore_Ef_Exam.Data.Configurations;
 using MusicStore_Ef_Exam.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,12 +19,13 @@ namespace MusicStore_Ef_Exam.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            string conn = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MusicStore;Integrated Security=True;Connect Timeout=30;";
+            string conn = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StoreMusic;Integrated Security=True;Connect Timeout=30;";
             optionsBuilder.UseSqlServer(conn);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Entity<Country>().HasData(new[]
             {
                 new Country() {Id = 1, Name = "Ukraine"},
@@ -62,10 +65,10 @@ namespace MusicStore_Ef_Exam.Data
             });
             modelBuilder.Entity<Album>().HasData(new[]
             {
-                new Album() {Id = 1, Name = "No Troubles", AuthorId = 1, CategoryId =1, Quantity = 5, Year = 2022, Price = 2, OrderId = 1},
-                new Album() {Id = 2, Name = "My Way", AuthorId = 2, CategoryId = 2, Price = 5, Quantity = 20, Year = 2020, OrderId = 2},
-                new Album() {Id = 3, Name = "No More Tears", AuthorId = 3, CategoryId = 3, Year = 2018, Quantity = 100, Price = 10, OrderId = 1 },
-                new Album() {Id = 4, Name = "M.A.D.E.", AuthorId = 4, CategoryId = 4, Price = 25, Quantity = 15, Year = 2017, OrderId =1}
+                new Album() {Id = 1, Name = "No Troubles", AuthorId = 1, CategoryId =1, Quantity = 5, Year = 2022, Price = 2},
+                new Album() {Id = 2, Name = "My Way", AuthorId = 2, CategoryId = 2, Price = 5, Quantity = 20, Year = 2020},
+                new Album() {Id = 3, Name = "No More Tears", AuthorId = 3, CategoryId = 3, Year = 2018, Quantity = 100, Price = 10 },
+                new Album() {Id = 4, Name = "M.A.D.E.", AuthorId = 4, CategoryId = 4, Price = 25, Quantity = 15, Year = 2017}
             });
             modelBuilder.Entity<Seller>().HasData(new[]
             {
@@ -82,6 +85,20 @@ namespace MusicStore_Ef_Exam.Data
                 new Order() { Id = 1, BuyerId = 1, SellerId = 1, Summ = 200},
                 new Order() { Id = 2, BuyerId = 2, SellerId = 2, Summ = 20}
             });
+            modelBuilder.Entity<OrderAlbums>().HasData(new[]
+            {
+                new OrderAlbums() {Id = 1, AlbumId = 2, OrderId = 1},
+                new OrderAlbums() {Id = 2, AlbumId = 1, OrderId = 2},
+            });
         }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Buyer> Buyers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Ganre> Ganres { get; set; }
+        public DbSet<Seller> Sellers { get; set; }
+        public DbSet<Track> Tracks { get; set; }
     }
 }

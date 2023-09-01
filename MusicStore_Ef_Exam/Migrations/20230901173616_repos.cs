@@ -7,13 +7,13 @@
 namespace MusicStore_Ef_Exam.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class repos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Buyer",
+                name: "Buyers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,30 +22,11 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Buyer", x => x.Id);
+                    table.PrimaryKey("PK_Buyers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Category", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Category_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -54,11 +35,11 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ganre",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -67,11 +48,24 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ganre", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Author",
+                name: "Ganres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ganres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Authors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -82,17 +76,17 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Author", x => x.Id);
+                    table.PrimaryKey("PK_Authors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Author_Country_CountryId",
+                        name: "FK_Authors_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seller",
+                name: "Sellers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -103,11 +97,41 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seller", x => x.Id);
+                    table.PrimaryKey("PK_Sellers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Seller_Country_CountryId",
+                        name: "FK_Sellers_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Albums",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Albums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Albums_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Albums_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,65 +142,29 @@ namespace MusicStore_Ef_Exam.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Summ = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BuyerId = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false),
-                    Summ = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    SellerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Buyer_BuyerId",
+                        name: "FK_Orders_Buyers_BuyerId",
                         column: x => x.BuyerId,
-                        principalTable: "Buyer",
+                        principalTable: "Buyers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Seller_SellerId",
+                        name: "FK_Orders_Sellers_SellerId",
                         column: x => x.SellerId,
-                        principalTable: "Seller",
+                        principalTable: "Sellers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Album",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OrdersId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Album", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Album_Author_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Author",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Album_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Album_Orders_OrdersId",
-                        column: x => x.OrdersId,
-                        principalTable: "Orders",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Track",
+                name: "Tracks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -188,23 +176,49 @@ namespace MusicStore_Ef_Exam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Track", x => x.Id);
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Track_Album_AlbumsId",
+                        name: "FK_Tracks_Albums_AlbumsId",
                         column: x => x.AlbumsId,
-                        principalTable: "Album",
+                        principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Track_Ganre_GanreId",
-                        column: x => x.GanreId,
-                        principalTable: "Ganre",
+                        name: "FK_Tracks_Ganres_AlbumsId",
+                        column: x => x.AlbumsId,
+                        principalTable: "Ganres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderAlbums",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AlbumId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderAlbums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderAlbums_Albums_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "Albums",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderAlbums_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
-                table: "Buyer",
+                table: "Buyers",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -213,18 +227,18 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Category",
-                columns: new[] { "Id", "CategoryId", "Name" },
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, "Relax" },
-                    { 2, null, "Dance" },
-                    { 3, null, "Work" },
-                    { 4, null, "Work Out" }
+                    { 1, "Relax" },
+                    { 2, "Dance" },
+                    { 3, "Work" },
+                    { 4, "Work Out" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Country",
+                table: "Countries",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -236,7 +250,7 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Ganre",
+                table: "Ganres",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -248,7 +262,7 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Author",
+                table: "Authors",
                 columns: new[] { "Id", "CountryId", "Name", "Surname" },
                 values: new object[,]
                 {
@@ -259,7 +273,7 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Seller",
+                table: "Sellers",
                 columns: new[] { "Id", "CountryId", "Name", "Surname" },
                 values: new object[,]
                 {
@@ -268,14 +282,14 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Album",
-                columns: new[] { "Id", "AuthorId", "CategoryId", "Name", "OrdersId", "Price", "Quantity", "Year" },
+                table: "Albums",
+                columns: new[] { "Id", "AuthorId", "CategoryId", "Name", "Price", "Quantity", "Year" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "No Troubles", null, 2m, 5, 2022 },
-                    { 2, 2, 2, "My Way", null, 5m, 20, 2020 },
-                    { 3, 3, 3, "No More Tears", null, 10m, 100, 2018 },
-                    { 4, 4, 4, "M.A.D.E.", null, 25m, 15, 2017 }
+                    { 1, 1, 1, "No Troubles", 2m, 5, 2022 },
+                    { 2, 2, 2, "My Way", 5m, 20, 2020 },
+                    { 3, 3, 3, "No More Tears", 10m, 100, 2018 },
+                    { 4, 4, 4, "M.A.D.E.", 25m, 15, 2017 }
                 });
 
             migrationBuilder.InsertData(
@@ -288,7 +302,16 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Track",
+                table: "OrderAlbums",
+                columns: new[] { "Id", "AlbumId", "OrderId" },
+                values: new object[,]
+                {
+                    { 1, 2, 1 },
+                    { 2, 1, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tracks",
                 columns: new[] { "Id", "AlbumsId", "Duration", "GanreId", "Name" },
                 values: new object[,]
                 {
@@ -299,29 +322,29 @@ namespace MusicStore_Ef_Exam.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Album_AuthorId",
-                table: "Album",
+                name: "IX_Albums_AuthorId",
+                table: "Albums",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Album_CategoryId",
-                table: "Album",
+                name: "IX_Albums_CategoryId",
+                table: "Albums",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Album_OrdersId",
-                table: "Album",
-                column: "OrdersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Author_CountryId",
-                table: "Author",
+                name: "IX_Authors_CountryId",
+                table: "Authors",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Category_CategoryId",
-                table: "Category",
-                column: "CategoryId");
+                name: "IX_OrderAlbums_AlbumId",
+                table: "OrderAlbums",
+                column: "AlbumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderAlbums_OrderId",
+                table: "OrderAlbums",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_BuyerId",
@@ -334,50 +357,48 @@ namespace MusicStore_Ef_Exam.Migrations
                 column: "SellerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seller_CountryId",
-                table: "Seller",
+                name: "IX_Sellers_CountryId",
+                table: "Sellers",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Track_AlbumsId",
-                table: "Track",
+                name: "IX_Tracks_AlbumsId",
+                table: "Tracks",
                 column: "AlbumsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Track_GanreId",
-                table: "Track",
-                column: "GanreId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Track");
+                name: "OrderAlbums");
 
             migrationBuilder.DropTable(
-                name: "Album");
-
-            migrationBuilder.DropTable(
-                name: "Ganre");
-
-            migrationBuilder.DropTable(
-                name: "Author");
-
-            migrationBuilder.DropTable(
-                name: "Category");
+                name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Buyer");
+                name: "Albums");
 
             migrationBuilder.DropTable(
-                name: "Seller");
+                name: "Ganres");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Buyers");
+
+            migrationBuilder.DropTable(
+                name: "Sellers");
+
+            migrationBuilder.DropTable(
+                name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Countries");
         }
     }
 }

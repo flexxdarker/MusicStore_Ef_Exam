@@ -15,7 +15,7 @@ namespace MusicStore_Ef_Exam.Data.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired();
-            builder.Property(x=>x.Surname).IsRequired();
+            builder.Property(x=>x.Surname).IsRequired(false);
             builder.HasOne(x => x.Country).WithMany(x => x.Author).HasForeignKey(x => x.CountryId);
         }
     }
