@@ -11,6 +11,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ComboBox Margin="2">
                 <ComboBoxItem Name="ShowAlbums" Selected="ShowAlbums_Selected">Show All Albums</ComboBoxItem>
@@ -19,7 +20,8 @@
                 <ComboBoxItem Name="ShowOrders" Selected="ShowOrders_Selected">Show All Orders</ComboBoxItem>
                 <ComboBoxItem Name="ShowSellers" Selected="ShowSellers_Selected">Show All Sellers</ComboBoxItem>
             </ComboBox>
-            <ComboBox Grid.Column="1" Margin="2">
+            <Button x:Name="SearchByName" Content="Search music by name" Click="SearchByName_Click" Grid.Column="1" Margin="2"/>
+            <ComboBox Grid.Column="2" Margin="2">
                 <ComboBoxItem Name="AddAlbum" Selected="AddAlbum_Selected">Add Album</ComboBoxItem>
                 <ComboBoxItem Name="AddAuthor" Selected="AddAuthor_Selected">Add Author</ComboBoxItem>
                 <ComboBoxItem Name="AddBuyer" Selected="AddBuyer_Selected">Add Buyer</ComboBoxItem>
@@ -28,7 +30,7 @@
             </ComboBox>
         </Grid>
         <Grid DockPanel.Dock="Top" Background="DimGray">
-            <DataGrid x:Name="Grid"/>
+            <DataGrid x:Name="Grid" Background="PapayaWhip" GridLinesVisibility="None"/>
         </Grid>
     </DockPanel>
 </Window>

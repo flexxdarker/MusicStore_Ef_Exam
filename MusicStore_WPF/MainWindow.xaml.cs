@@ -25,80 +25,64 @@ namespace MusicStore_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IRepository<Album> _albumRepository = null;
-        private IRepository<Seller> _sellerRepository = null;
-        private IRepository<Buyer> _buyerRepository = null;
-        private IRepository<Order> _orderRepository = null;
-        private IRepository<Track> _trackRepository = null;
-        private IRepository<Author> _authorRepository = null;
+        UnitOfWork UoW = new UnitOfWork();
         public MainWindow()
         {
             InitializeComponent();
-            var db = new MusicStoreDbContext();
-            _albumRepository = new Repository<Album>(db);
-            _authorRepository = new Repository<Author>(db); 
-            _sellerRepository = new Repository<Seller>(db);
-            _buyerRepository = new Repository<Buyer>(db);
-            _orderRepository = new Repository<Order>(db);
-            _trackRepository = new Repository<Track>(db);
         }
 
         private void ShowSellers_Selected(object sender, RoutedEventArgs e)
         {
-            Grid.ItemsSource = _sellerRepository.Get().Select(x => new
+
+            Grid.ItemsSource = UoW.SellerRepo.Get(includeProperties: "Orders,Country").Select(x => new
             {
                 x.Id,
                 x.Name,
                 x.Surname,
-                x.Orders,
-                x.Country,
+                Country = x.Country.Name
             });
         }
 
         private void ShowOrders_Selected(object sender, RoutedEventArgs e)
         {
-            Grid.ItemsSource = _orderRepository.Get().Select(x => new
+            Grid.ItemsSource = UoW.OrderRepo.Get(includeProperties: "Seller,Buyer").Select(x => new
             {
                 x.Id,
-                x.Buyer,
-                x.Seller,
-                x.OrderAlbums
+                Buyer = x.Buyer.Name,
+                Seller = x.Seller.Name,
             });
         }
 
         private void ShowBuyers_Selected(object sender, RoutedEventArgs e)
         {
-            Grid.ItemsSource = _buyerRepository.Get().Select(x => new
+
+            Grid.ItemsSource = UoW.BuyerRepo.Get().Select(x => new
             {
                 x.Id,
                 x.Name,
-                x.Orders,
             });
         }
 
         private void ShowAuthors_Selected(object sender, RoutedEventArgs e)
         {
-            Grid.ItemsSource = _authorRepository.Get().Select(x => new
+            Grid.ItemsSource = UoW.AuthorRepo.Get(includeProperties: "Country").Select(x => new
             {
                 x.Id,
                 x.Name,
                 x.Surname,
-                x.Albums,
-                x.Country
+                Country = x.Country.Name
             });
         }
 
         private void ShowAlbums_Selected(object sender, RoutedEventArgs e)
         {
-            Grid.ItemsSource = _albumRepository.Get().Select(x => new
+            Grid.ItemsSource = UoW.AlbumRepo.Get(includeProperties: "Category,Author").Select(x => new
             {
                 x.Id,
                 x.Name,
-                x.Author,
-                x.Category,
-                x.Tracks,
+                Author = x.Author.Name,
+                Category = x.Category.Name,
                 x.Year,
-                x.OrderAlbums,
                 x.Quantity,
                 x.Price,
             });
@@ -106,27 +90,38 @@ namespace MusicStore_WPF
 
         private void AddAlbum_Selected(object sender, RoutedEventArgs e)
         {
-            
+            AddAlbum addAlbum = new AddAlbum();
+            addAlbum.ShowDialog();
         }
 
         private void AddAuthor_Selected(object sender, RoutedEventArgs e)
         {
-
+            AddAuthor addAuthor = new AddAuthor();
+            addAuthor.ShowDialog();
         }
 
         private void AddBuyer_Selected(object sender, RoutedEventArgs e)
         {
-
+            AddBuyer addBuyer = new AddBuyer();
+            addBuyer.ShowDialog();
         }
 
         private void AddOrder_Selected(object sender, RoutedEventArgs e)
         {
-
+            AddOrder addOrder = new AddOrder();
+            addOrder.ShowDialog();
         }
 
         private void AddSeller_Selected(object sender, RoutedEventArgs e)
         {
+            AddSeller addSeller = new AddSeller();
+            addSeller.ShowDialog();
+        }
 
+        private void SearchByName_Click(object sender, RoutedEventArgs e)
+        {
+            SearchByName searchByName = new SearchByName();
+            searchByName.ShowDialog();
         }
     }
 }

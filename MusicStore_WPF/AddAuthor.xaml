@@ -1,0 +1,29 @@
+﻿<Window x:Class="MusicStore_WPF.AddAuthor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MusicStore_WPF"
+        mc:Ignorable="d"
+        Title="AddAuthor" Height="225" Width="400">
+    <Grid Background="AntiqueWhite">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Name" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center"/>
+        <TextBox x:Name="NameBox" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Background="LightGray"/>
+        <Label Content="Surname" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Grid.Row="1"/>
+        <TextBox x:Name="SurnameBox" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Background="LightGray" Grid.Row="1"/>
+        <Label Content="CountryId" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Grid.Row="2"/>
+        <TextBox x:Name="CountryIdBox" Grid.Column="1" Grid.ColumnSpan="2" Margin="2" Background="LightGray" Grid.Row="2"/>
+        <Button x:Name="Add" Content="Add" Grid.Column="1" Grid.Row="4" Click="Add_Click" Margin="2" FontSize="20"/>
+    </Grid>
+</Window>
